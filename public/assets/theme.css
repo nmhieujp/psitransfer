@@ -184,6 +184,8 @@ h1, h2, h3, h4,
   padding: 7px 12px;
   border-radius: 999px;
   cursor: pointer;
+  white-space: nowrap;
+  text-align: center;
 }
 
 .lang-switch-btn:hover,
@@ -863,8 +865,9 @@ footer.footer,
   }
 
   .lang-switch-btn {
-    flex: 1;
-    padding: 9px 6px;
+    flex: 1 1 0;
+    padding: 9px 4px;
+    font-size: 13px;
   }
 
   .upload-layout {
@@ -903,5 +906,12 @@ footer.footer,
 
   .share-link {
     padding: 10px 12px;
+  }
+}
+
+@media (max-width: 380px) {
+  .lang-switch-btn {
+    padding: 8px 2px;
+    font-size: 12.5px;
   }
 }
