@@ -1,5 +1,18 @@
 const path = require('path');
+const fs = require('fs');
 const webpack = require('webpack');
+
+// Static copies for the language switch on pages without the Vue bundle.
+// The running server may ignore the saved choice and answer lang.json from
+// the browser's Accept-Language header.
+const i18nDir = path.resolve(__dirname, '../public/assets/i18n');
+fs.mkdirSync(i18nDir, { recursive: true });
+['en', 'ja', 'vi'].forEach((code) => {
+  fs.writeFileSync(
+    path.join(i18nDir, code + '.json'),
+    JSON.stringify(require(path.resolve(__dirname, '../lang', code)))
+  );
+});
 const BundleAnalyzerPlugin = require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
 const { VueLoaderPlugin } = require('vue-loader');
 const execSync = require('child_process').execSync;

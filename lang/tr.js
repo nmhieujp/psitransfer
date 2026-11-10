@@ -40,8 +40,8 @@ module.exports = {
   mailDownloadNotification: "Dosyam indirilince bilgi ver",
   mailSendBtn: "E-Posta gönder",
   mailsSent: "E-Postalar gönderildi",
-  mailSubjectUploader: "PsiTransfer File-Upload",
-  mailSubjectDownloader: "PsiTransfer Dosya Yüklemesi",
+  mailSubjectUploader: "Send Files File-Upload",
+  mailSubjectDownloader: "Send Files Dosya Yüklemesi",
   mailSubjectFileDownloaded: "Dosya indirildi",
   retentions: {
     "one-time": "Tek Seferlik",
@@ -52,6 +52,7 @@ module.exports = {
     "604800": "1 Hafta",
     "1209600": "2 Hafta",
     "2419200": "4 Hafta",
+    "2592000": "1 ay",
     "4838400": "8 Hafta"
   },
   uploadPassword: "Yükleme için parola",

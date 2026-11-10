@@ -40,8 +40,8 @@ module.exports = {
   mailDownloadNotification: "Powiadom mnie kiedy plik zostanie pobrany.",
   mailSendBtn: "Wyślij E-Mail",
   mailsSent: "Wiadomości E-Mail zostały wysłane.",
-  mailSubjectUploader: "PsiTransfer przesyłanie plików",
-  mailSubjectDownloader: "PsiTransfer pobieranie plików",
+  mailSubjectUploader: "Send Files przesyłanie plików",
+  mailSubjectDownloader: "Send Files pobieranie plików",
   mailSubjectFileDownloaded: "Plik został pobrany",
   retentions: {
     "one-time": "pobieranie jednorazowe",
@@ -52,6 +52,7 @@ module.exports = {
     "604800": "1 tydzień",
     "1209600": "2 tygodnie",
     "2419200": "4 tygodnie",
+    "2592000": "1 miesiąc",
     "4838400": "8 tygodni"
   },
 }

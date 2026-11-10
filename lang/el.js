@@ -40,8 +40,8 @@ module.exports = {
   mailDownloadNotification: "Ειδοποίησέ με όταν γίνει λήψη ενός αρχείου.",
   mailSendBtn: "Αποστολή E-Mail",
   mailsSent: "Τα e-mails έχουν σταλεί.",
-  mailSubjectUploader: "PsiTransfer Μεταφόρτωση Αρχείων",
-  mailSubjectDownloader: "PsiTransfer Λήψη Αρχείων",
+  mailSubjectUploader: "Send Files Μεταφόρτωση Αρχείων",
+  mailSubjectDownloader: "Send Files Λήψη Αρχείων",
   mailSubjectFileDownloaded: "Έγινε λήψη του αρχείου",
   retentions: {
     "one-time": "λήψη μίας φοράς",
@@ -52,6 +52,7 @@ module.exports = {
     "604800": "1 Εβδομάδα",
     "1209600": "2 Εβδομάδες",
     "2419200": "4 Εβδομάδες",
+    "2592000": "1 μήνας",
     "4838400": "8 Εβδομάδες"
   },
   uploadPassword: "Συνθηματικό για μεταφόρτωση",

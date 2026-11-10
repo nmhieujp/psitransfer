@@ -4,7 +4,7 @@ import Vue from 'vue';
 import Upload from './Upload.vue';
 import store from './Upload/store.js';
 import Icon from 'vue-awesome/components/Icon'
-import {httpGet} from "./common/util";
+import { installLanguage } from "./common/i18n";
 
 Vue.component('icon', Icon);
 
@@ -14,27 +14,24 @@ new Vue({
     baseURI: document.head.getElementsByTagName('base')[0].href.replace(/\/$/),
     configFetched: false,
     lang: {},
+    langReady: false,
   },
   store,
   render: h => h(Upload),
-  async beforeCreate() {
-    // Fetch translations
-    try {
-      this.lang = await httpGet('lang.json');
-      this.$store.commit('LANG', this.lang);
-    } catch (e) {
-      alert(e);
-    }
+  created() {
+    installLanguage((dict) => {
+      this.lang = dict;
+      this.$store.commit('LANG', dict);
+      this.langReady = true;
+      if (window.psitransferApplyLang) window.psitransferApplyLang(dict);
+    });
 
-    // Fetch config
-    try {
-      await this.$store.dispatch('config/fetch');
-    } catch(e) {
-      if(e.code !== 'PWDREQ') {
-        console.error(e);
-      }
-    }
-    this.configFetched = true;
+    // Fetch config. The password panel is already in the chosen language.
+    this.$store.dispatch('config/fetch').catch((e) => {
+      if (e.code !== 'PWDREQ') console.error(e);
+    }).then(() => {
+      this.configFetched = true;
+    });
   }
 });
 

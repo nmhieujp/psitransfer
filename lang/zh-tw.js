@@ -40,8 +40,8 @@ module.exports = {
   mailDownloadNotification: "檔案被下載時通知我。",
   mailSendBtn: "傳送電子郵件",
   mailsSent: "電子郵件已傳送",
-  mailSubjectUploader: "PsiTransfer 檔案上傳",
-  mailSubjectDownloader: "PsiTransfer 檔案下載",
+  mailSubjectUploader: "Send Files 檔案上傳",
+  mailSubjectDownloader: "Send Files 檔案下載",
   mailSubjectFileDownloaded: "檔案已被下載",
   retentions: {
     "one-time": "單次下載",
@@ -52,6 +52,7 @@ module.exports = {
     "604800": "1 週",
     "1209600": "2 週",
     "2419200": "4 週",
+    "2592000": "1 個月",
     "4838400": "8 週"
   },
 }

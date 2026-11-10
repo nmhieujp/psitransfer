@@ -40,8 +40,8 @@ module.exports = {
   mailDownloadNotification: "Meddela mig när en fil har hämtats.",
   mailSendBtn: "Skicka e-post",
   mailsSent: "E-postmeddelandena har skickats.",
-  mailSubjectUploader: "PsiTransfer File-Upload",
-  mailSubjectDownloader: "PsiTransfer File-Download",
+  mailSubjectUploader: "Send Files File-Upload",
+  mailSubjectDownloader: "Send Files File-Download",
   mailSubjectFileDownloaded: "Filen har laddats ner",
   retentions: {
     "one-time": "engångs nedladdning",
@@ -52,6 +52,7 @@ module.exports = {
     "604800": "1 vecka",
     "1209600": "2 veckor",
     "2419200": "4 veckor",
+    "2592000": "1 månad",
     "4838400": "8 veckor"
   },
 }

@@ -1,26 +1,26 @@
 <template lang="pug">
-  .download-app
-    a.btn.btn-sm.btn-info.btn-new-session(@click='newSession()', :title='$root.lang.newUpload')
-      icon.fa-fw(name="cloud-upload-alt")
-      span.hidden-xs  {{ $root.lang.newUpload }}
+  .download-app(v-if="$root.langReady")
+    .page-toolbar
+      a.btn.btn-default.btn-new-session(@click='newSession()', @keydown.enter.prevent='newSession()', @keydown.space.prevent='newSession()', :title='$root.lang.newUpload', tabindex="0", role="button")
+        icon.fa-fw(name="cloud-upload-alt")
+        span  {{ $root.lang.newUpload }}
     .alert.alert-danger(v-show="error")
       strong
         icon.fa-fw(name="exclamation-triangle")
         |  {{ error }}
-    .well(v-if='needsPassword')
-      h3 {{ $root.lang.password }}
+    .well.gate(v-if='needsPassword')
+      h2 {{ $root.lang.password }}
       .form-group
         input.form-control(type='password', v-model='password', @keyup.enter='password.length && fetchBucket()' autofocus)
       p.text-danger(v-show='passwordWrong')
         strong {{ $root.lang.accessDenied }}
-      |
-      button.decrypt.btn.btn-primary(:disabled='password.length<1', @click='fetchBucket()')
+      button.decrypt.btn.btn-primary(type="button", :disabled='password.length<1', @click='fetchBucket()')
         icon.fa-fw(name="key")
         |  {{ $root.lang.decrypt }}
     .panel.panel-primary(v-if='!needsPassword && !loading')
       .panel-heading
         strong {{ $root.lang.files }}
-        div.pull-right.btn-group.btn-download-archive(v-if="downloadsAvailable")
+        div.btn-group.btn-download-archive(v-if="downloadsAvailable")
           a.btn.btn-sm.btn-default(
             @click="downloadAll('zip')"
             @keydown.enter.prevent="downloadAll('zip')"
@@ -42,11 +42,10 @@
             icon.fa-fw(name="download")
             |  tar.gz
       .panel-body
-        table.table.table-hover.table-striped.files
+        table.table.table-hover.files
           tbody
             tr(
               v-for='file in files',
-              style='cursor: pointer',
               @click='download(file)',
               @keydown.enter.prevent='download(file)',
               @keydown.space.prevent='download(file)',
@@ -56,17 +55,17 @@
               td.file-icon
                 file-icon(:file='file')
               td
-                div.pull-right.btn-group
+                div.file-actions
+                  icon.text-success.downloaded(name="check", v-show='file.downloaded')
                   clipboard.btn.btn-sm.btn-default(:value='baseURI + file.url', @change='copied(file, $event)', :title='$root.lang.copyToClipboard')
                     a
                       icon(name="copy")
-                  a.btn.btn-sm.btn-default(:title="$root.lang.preview", @click.prevent.stop="preview=file", v-if="file.previewType")
+                  a.btn.btn-sm.btn-default(:title="$root.lang.preview", :aria-label="$root.lang.preview", @click.prevent.stop="preview=file", v-if="file.previewType")
                     icon(name="eye")
-                i.pull-right.fa.fa-check.text-success.downloaded(v-show='file.downloaded')
-                p
+                p.file-name
                   strong {{ file.metadata.name }}
                   small.file-size(v-if="isFinite(file.size)") ({{ humanFileSize(file.size) }})
-                p {{ file.metadata.comment }}
+                p.file-comment(v-if="file.metadata.comment") {{ file.metadata.comment }}
 
     preview-modal(:preview="preview", :files="previewFiles", :max-size="config.maxPreviewSize", @close="preview=false")
 

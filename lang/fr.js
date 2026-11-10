@@ -40,8 +40,8 @@ module.exports = {
   mailDownloadNotification: "Notifiez moi quand un fichier a été téléchargé.",
   mailSendBtn: "Envoyer",
   mailsSent: "Les messages ont été envoyés.",
-  mailSubjectUploader: "PsiTransfer - Téléversement de fichiers",
-  mailSubjectDownloader: "PsiTransfer - Téléchargement de fichiers",
+  mailSubjectUploader: "Send Files - Téléversement de fichiers",
+  mailSubjectDownloader: "Send Files - Téléchargement de fichiers",
   mailSubjectFileDownloaded: "Le fichier a été téléchargé",
   retentions: {
     "one-time": "téléchargement unique",
@@ -52,6 +52,7 @@ module.exports = {
     "604800": "1 semaine",
     "1209600": "2 semaines",
     "2419200": "4 semaines",
+    "2592000": "1 mois",
     "4838400": "8 semaines"
   },
   uploadPassword: "Mot de passe d'accès au téléversement",

@@ -6,11 +6,11 @@
       div
         small {{currentIndex+1}} / {{files.length}}
         span.btn-group
-          a.btn.btn-sm.btn-default(title="previous", @click="prev", v-show="currentIndex > 0")
+          a.btn.btn-sm.btn-default(:title="$root.lang.previous", :aria-label="$root.lang.previous", @click="prev", v-show="currentIndex > 0")
             icon(name="arrow-left")
-          a.btn.btn-sm.btn-default(title="next", @click="next", v-show="currentIndex < files.length-1")
+          a.btn.btn-sm.btn-default(:title="$root.lang.next", :aria-label="$root.lang.next", @click="next", v-show="currentIndex < files.length-1")
             icon(name="arrow-right")
-          a.btn.btn-sm.btn-default(title="toggle line wrap", @click="lineWrap = !lineWrap", :class="{active:lineWrap}", v-show="current.previewType === 'text'")
+          a.btn.btn-sm.btn-default(:title="$root.lang.toggleLineWrap", :aria-label="$root.lang.toggleLineWrap", @click="lineWrap = !lineWrap", :class="{active:lineWrap}", v-show="current.previewType === 'text'")
             icon(name="undo-alt", flip="vertical")
     div(slot="body")
       div(v-if="current.previewType === 'image'", style="text-align:center")

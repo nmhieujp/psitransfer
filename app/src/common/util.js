@@ -1,7 +1,12 @@
-export async function httpGet(url) {
+export async function httpGet(url, headers) {
   return new Promise((resolve, reject) => {
     const xhr = new XMLHttpRequest();
     xhr.open('GET', url);
+    if (headers) {
+      Object.keys(headers).forEach(function (key) {
+        xhr.setRequestHeader(key, headers[key]);
+      });
+    }
     xhr.onload = () => {
       if (xhr.status === 200) {
         try {
