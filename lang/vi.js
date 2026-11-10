@@ -57,6 +57,7 @@ module.exports = {
     "604800": "1 tuần",
     "1209600": "2 tuần",
     "2419200": "4 tuần",
+    "2592000": "1 tháng",
     "4838400": "8 tuần"
   },
   uploadPassword: "Mật khẩu để tải lên",

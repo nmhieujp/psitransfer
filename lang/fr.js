@@ -52,6 +52,7 @@ module.exports = {
     "604800": "1 semaine",
     "1209600": "2 semaines",
     "2419200": "4 semaines",
+    "2592000": "1 mois",
     "4838400": "8 semaines"
   },
   uploadPassword: "Mot de passe d'accès au téléversement",

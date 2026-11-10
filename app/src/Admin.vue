@@ -64,6 +64,7 @@
 
 
 <script>
+  import { retentionText } from './common/retention';
   import 'vue-awesome/icons/exclamation-triangle';
   import 'vue-awesome/icons/sync-alt';
   import 'vue-awesome/icons/sign-in-alt';
@@ -153,10 +154,7 @@
       },
 
       retentionLabel(value) {
-        if (value === 'one-time' && this.$root.lang && this.$root.lang.retentions) {
-          return this.$root.lang.retentions['one-time'] || value;
-        }
-        return value;
+        return retentionText(this.$root.lang, value, value);
       },
 
       humanFileSize(fileSizeInBytes) {

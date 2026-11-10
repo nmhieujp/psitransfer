@@ -13,7 +13,7 @@
               v-for='(label, seconds) in config.retentions'
               :value="seconds"
               :selected="seconds === retention"
-            ) {{ $root.lang.retentions[seconds] || label }}
+            ) {{ retentionText(seconds, label) }}
         div
           label(for='password') {{ $root.lang.password }}
           .input-group(:class="{'has-error': config.requireBucketPassword && !password}")
@@ -40,6 +40,7 @@
 <script type="text/babel">
   import { mapState } from 'vuex';
   import 'vue-awesome/icons/key';
+  import { retentionText } from '../common/retention';
 
   const passGen = {
     _pattern: /[A-Z0-9_\-+!]/,
@@ -79,6 +80,9 @@
     }),
 
     methods: {
+      retentionText(seconds, fallback) {
+        return retentionText(this.$root.lang, seconds, fallback);
+      },
       generatePassword() {
         if (this.disabled) return;
         this.$store.commit('upload/PASSWORD', passGen.generate(10));

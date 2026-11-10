@@ -52,6 +52,7 @@ module.exports = {
     "604800": "1 Hafta",
     "1209600": "2 Hafta",
     "2419200": "4 Hafta",
+    "2592000": "1 ay",
     "4838400": "8 Hafta"
   },
   uploadPassword: "Yükleme için parola",

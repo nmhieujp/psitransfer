@@ -52,6 +52,7 @@ module.exports = {
     "604800": "1 tydzień",
     "1209600": "2 tygodnie",
     "2419200": "4 tygodnie",
+    "2592000": "1 miesiąc",
     "4838400": "8 tygodni"
   },
 }
