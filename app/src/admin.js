@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import Admin from './Admin.vue';
 import Icon from 'vue-awesome/components/Icon'
-import { httpGet, langRequest } from './common/util';
+import { installLanguage } from './common/i18n';
 
 function parseDate(str) {
   if(!str) return str;
@@ -35,15 +35,12 @@ new Vue({
     lang: {},
     langReady: false,
   },
-  async beforeCreate() {
-    try {
-      const req = langRequest();
-      this.lang = await httpGet(req.url, req.headers);
+  created() {
+    installLanguage((dict) => {
+      this.lang = dict;
       this.langReady = true;
-      if (window.psitransferApplyLang) window.psitransferApplyLang(this.lang);
-    } catch (e) {
-      alert(e);
-    }
+      if (window.psitransferApplyLang) window.psitransferApplyLang(dict);
+    });
   },
   render: h => h(Admin)
 });

@@ -38,7 +38,19 @@
         if (!SUPPORTED[lang]) return;
         try { localStorage.setItem(KEY, lang); } catch (err) {}
         document.cookie = 'psitransfer_lang=' + lang + '; Path=/; Max-Age=31536000; SameSite=Lax';
-        location.reload();
+        window.PSITRANSFER_LANG = lang;
+        document.documentElement.lang = lang;
+        mark(lang);
+        var bundled = window.PSITRANSFER_DICTS && window.PSITRANSFER_DICTS[lang];
+        if (bundled && window.psitransferApplyLang) window.psitransferApplyLang(bundled);
+        else loadPack(lang);
+        try {
+          window.dispatchEvent(new CustomEvent('psitransfer-lang', { detail: lang }));
+        } catch (err2) {
+          var legacy = document.createEvent('CustomEvent');
+          legacy.initCustomEvent('psitransfer-lang', false, false, lang);
+          window.dispatchEvent(legacy);
+        }
         return;
       }
       node = node.parentNode;
@@ -54,28 +66,29 @@
     return '';
   }
 
-  function boot() {
-    mark(initialCode());
-    var hasApp = document.getElementById('upload')
-      || document.getElementById('download')
-      || document.getElementById('admin');
-    if (hasApp) return;
+  function assetUrl(code) {
     var baseEl = document.querySelector('base');
     var base = baseEl ? baseEl.href : '/';
-    var url = base + 'lang.json';
-    if (window.PSITRANSFER_LANG && SUPPORTED[window.PSITRANSFER_LANG]) {
-      url += '?lang=' + encodeURIComponent(window.PSITRANSFER_LANG);
-    }
+    return base + 'assets/i18n/' + code + '.json';
+  }
+
+  function loadPack(code) {
     var xhr = new XMLHttpRequest();
-    xhr.open('GET', url);
-    if (window.PSITRANSFER_LANG && SUPPORTED[window.PSITRANSFER_LANG]) {
-      xhr.setRequestHeader('Accept-Language', window.PSITRANSFER_LANG);
-    }
+    xhr.open('GET', assetUrl(code));
     xhr.onload = function () {
       if (xhr.status !== 200) return;
       try { apply(JSON.parse(xhr.responseText)); } catch (err) {}
     };
     xhr.send();
+  }
+
+  function boot() {
+    mark(initialCode());
+    if (window.PSITRANSFER_LANG && SUPPORTED[window.PSITRANSFER_LANG]) {
+      var bundled = window.PSITRANSFER_DICTS && window.PSITRANSFER_DICTS[window.PSITRANSFER_LANG];
+      if (bundled) apply(bundled);
+      else loadPack(window.PSITRANSFER_LANG);
+    }
   }
 
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);

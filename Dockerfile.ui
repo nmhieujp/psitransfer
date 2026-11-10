@@ -35,12 +35,15 @@ WORKDIR /build/app
 COPY app/package.json app/package-lock.json ./
 RUN npm ci
 
+# Language packs are imported by the frontend build and written to assets/i18n
+COPY lang /build/lang
 COPY app ./
 RUN npm run build
 
 FROM psitrax/psitransfer@sha256:599518d35a331dde29e87c4663486c3b238b56c3c7bd69a7f1861c36c989a621
 
 COPY --from=frontend /build/public/app /app/public/app
+COPY --from=frontend /build/public/assets/i18n /app/public/assets/i18n
 COPY public/assets/theme.css public/assets/lang-switch.js /app/public/assets/
 COPY public/pug /app/public/pug
 COPY lang /app/lang
