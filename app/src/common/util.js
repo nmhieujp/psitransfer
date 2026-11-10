@@ -1,7 +1,23 @@
-export async function httpGet(url) {
+export function langRequest() {
+  const lang = (typeof window !== 'undefined' && window.PSITRANSFER_LANG) || '';
+  if (lang === 'en' || lang === 'ja' || lang === 'vi') {
+    return {
+      url: 'lang.json?lang=' + encodeURIComponent(lang),
+      headers: { 'Accept-Language': lang }
+    };
+  }
+  return { url: 'lang.json', headers: null };
+}
+
+export async function httpGet(url, headers) {
   return new Promise((resolve, reject) => {
     const xhr = new XMLHttpRequest();
     xhr.open('GET', url);
+    if (headers) {
+      Object.keys(headers).forEach(function (key) {
+        xhr.setRequestHeader(key, headers[key]);
+      });
+    }
     xhr.onload = () => {
       if (xhr.status === 200) {
         try {

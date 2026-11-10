@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import Admin from './Admin.vue';
 import Icon from 'vue-awesome/components/Icon'
+import { httpGet, langRequest } from './common/util';
 
 function parseDate(str) {
   if(!str) return str;
@@ -30,7 +31,19 @@ Vue.component('icon', Icon);
 new Vue({
   el: '#admin',
   data: {
-    baseURI: document.head.getElementsByTagName('base')[0].href
+    baseURI: document.head.getElementsByTagName('base')[0].href,
+    lang: {},
+    langReady: false,
+  },
+  async beforeCreate() {
+    try {
+      const req = langRequest();
+      this.lang = await httpGet(req.url, req.headers);
+      this.langReady = true;
+      if (window.psitransferApplyLang) window.psitransferApplyLang(this.lang);
+    } catch (e) {
+      alert(e);
+    }
   },
   render: h => h(Admin)
 });

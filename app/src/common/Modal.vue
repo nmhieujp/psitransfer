@@ -3,7 +3,7 @@
     .modal-dialog.modal-fluid(role='document')
       .modal-content
         .modal-header(v-if='hasHeader')
-          button.close(type='button', data-dismiss='modal', aria-label='Close', @click='close()')
+          button.close(type='button', data-dismiss='modal', :aria-label="$root.lang.close || 'Close'", @click='close()')
             span(aria-hidden='true') &times;
           h4.modal-title
             slot(name='header')  Modal

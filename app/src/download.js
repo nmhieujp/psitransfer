@@ -8,7 +8,7 @@ if(!String.prototype.startsWith) {
 }
 
 import Vue from 'vue';
-import { httpGet } from "./common/util";
+import { httpGet, langRequest } from "./common/util";
 import Download from './Download.vue';
 import Icon from 'vue-awesome/components/Icon'
 
@@ -19,11 +19,15 @@ new Vue({
   data: {
     baseURI: document.head.getElementsByTagName('base')[0].href.replace(/\/$/,''),
     lang: {},
+    langReady: false,
   },
   async beforeCreate() {
     // Fetch translations
     try {
-      this.lang = await httpGet('lang.json');
+      const req = langRequest();
+      this.lang = await httpGet(req.url, req.headers);
+      this.langReady = true;
+      if (window.psitransferApplyLang) window.psitransferApplyLang(this.lang);
     }
     catch (e) {
       alert(e);

@@ -1,0 +1,46 @@
+# Thin UI image. The final stage is the stock PsiTransfer image at the same
+# revision as git 008dec5717290c6066c33f382e2c666b2167198e
+# (psitrax/psitransfer:latest index, pushed 2026-10-24).
+#
+# The frontend build matches the upstream Dockerfile: npm ci, then npm run build
+# inside app/. Only the built bundles, styles, templates, and language packs
+# are copied onto that image. The server, auth, and upload code stay as shipped.
+#
+#   docker build -f Dockerfile.ui -t psitransfer-ui .
+#
+# Bind-mount the same files into the stock container instead of building an
+# image (read-only). Paths inside the container:
+#
+#   /app/public/app      webpack bundles (upload.js, download.js, admin.js, common.js)
+#   /app/public/assets   theme.css, lang-switch.js, and the existing styles
+#   /app/public/pug      server-rendered page templates
+#   /app/lang            language packs, including ja.js and vi.js
+#
+# From a checkout where `npm run build` has already been run in app/:
+#
+#   docker run --rm -p 3000:3000 \
+#     -v "$PWD/public/app:/app/public/app:ro" \
+#     -v "$PWD/public/assets:/app/public/assets:ro" \
+#     -v "$PWD/public/pug:/app/public/pug:ro" \
+#     -v "$PWD/lang:/app/lang:ro" \
+#     psitrax/psitransfer@sha256:599518d35a331dde29e87c4663486c3b238b56c3c7bd69a7f1861c36c989a621
+#
+# Or extract psitransfer-ui-assets.tar.gz (same directory layout) and mount
+# those four paths the same way.
+
+FROM --platform=$BUILDPLATFORM node:26-alpine AS frontend
+
+WORKDIR /build/app
+
+COPY app/package.json app/package-lock.json ./
+RUN npm ci
+
+COPY app ./
+RUN npm run build
+
+FROM psitrax/psitransfer@sha256:599518d35a331dde29e87c4663486c3b238b56c3c7bd69a7f1861c36c989a621
+
+COPY --from=frontend /build/public/app /app/public/app
+COPY public/assets/theme.css public/assets/lang-switch.js /app/public/assets/
+COPY public/pug /app/public/pug
+COPY lang /app/lang

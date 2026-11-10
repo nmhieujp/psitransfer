@@ -1,11 +1,31 @@
 base(href=baseUrl)
 meta(charset='utf-8')
-title PsiTransfer
+script.
+  (function () {
+    var stored = '';
+    try { stored = localStorage.getItem('psitransfer.lang') || ''; } catch (e) {}
+    if (stored !== 'en' && stored !== 'ja' && stored !== 'vi') {
+      window.PSITRANSFER_LANG = '';
+      return;
+    }
+    window.PSITRANSFER_LANG = stored;
+    document.documentElement.lang = stored;
+    var match = document.cookie.match(/(?:^|;\s*)psitransfer_lang=([a-z-]+)/);
+    var current = match ? match[1] : '';
+    if (current === stored) return;
+    document.cookie = 'psitransfer_lang=' + stored + '; Path=/; Max-Age=31536000; SameSite=Lax';
+    var check = document.cookie.match(/(?:^|;\s*)psitransfer_lang=([a-z-]+)/);
+    if (check && check[1] === stored) location.reload();
+  })();
+title= (typeof pageTitle !== 'undefined' && pageTitle) ? pageTitle : 'PsiTransfer'
 link(href='assets/favicon.ico' rel='icon' type='image/x-icon')
 meta(name='viewport' content='width=device-width, initial-scale=1')
 meta(name='robots' content='noindex,nofollow')
 meta(http-equiv='x-ua-compatible' content='IE=edge')
+meta(name='theme-color' content='#e7eef2' media='(prefers-color-scheme: light)')
+meta(name='theme-color' content='#171c22' media='(prefers-color-scheme: dark)')
 link(href='assets/styles.css' rel='stylesheet')
+link(href='assets/theme.css' rel='stylesheet')
 script.
   // Add ployfills for stupid IE
   if (document.documentMode || /Edge/.test(navigator.userAgent)) {
