@@ -45,8 +45,8 @@ module.exports = {
   mailDownloadNotification: "ファイルがダウンロードされたら通知する",
   mailSendBtn: "メールを送る",
   mailsSent: "メールを送信しました。",
-  mailSubjectUploader: "PsiTransfer ファイルのアップロード",
-  mailSubjectDownloader: "PsiTransfer ファイルのダウンロード",
+  mailSubjectUploader: "Send Files ファイルのアップロード",
+  mailSubjectDownloader: "Send Files ファイルのダウンロード",
   mailSubjectFileDownloaded: "ファイルがダウンロードされました",
   retentions: {
     "one-time": "1回だけダウンロード",

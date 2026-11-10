@@ -45,8 +45,8 @@ module.exports = {
   mailDownloadNotification: "Báo cho tôi khi có người tải tệp xuống.",
   mailSendBtn: "Gửi email",
   mailsSent: "Email đã được gửi.",
-  mailSubjectUploader: "PsiTransfer — Tệp đã tải lên",
-  mailSubjectDownloader: "PsiTransfer — Tệp để tải xuống",
+  mailSubjectUploader: "Send Files — Tệp đã tải lên",
+  mailSubjectDownloader: "Send Files — Tệp để tải xuống",
   mailSubjectFileDownloaded: "Tệp đã được tải xuống",
   retentions: {
     "one-time": "chỉ tải một lần",
